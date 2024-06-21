@@ -8,6 +8,7 @@ const AuthPage = () => {
         password: "",
     });
     const [isSignUpActive, setIsSignUpActive] = useState(false);
+    //make sure to come back here and add error handling (or else)
     const {signUp} = useSignUpWithEmailAndPassword();
     const {login} = useLogin();
 
