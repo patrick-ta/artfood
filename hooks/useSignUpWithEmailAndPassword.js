@@ -6,7 +6,7 @@ const useSignUpWithEmailAndPassword = () => {
     const [createUserWithEmailAndPassword, , loading, error] = useCreateUserWithEmailAndPassword(auth);
 
     const signUp = async (inputs) => {
-        if (!inputs.email || !inputs.password) {
+        if (!inputs.email || !inputs.username || !inputs.password) {
 			console.log("missing fields");
 			return;
 		}
@@ -30,7 +30,7 @@ const useSignUpWithEmailAndPassword = () => {
 				const userDoc = {
 					uid: newUser.user.uid,
 					email: inputs.email,
-					// username: inputs.username,
+					username: inputs.username,
 					bio: "",
 					profilePicURL: "",
 					followers: [],

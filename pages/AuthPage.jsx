@@ -5,6 +5,7 @@ import useLogin from "../hooks/useLogin";
 const AuthPage = () => {
     const [inputs, setInputs] = useState({
         email: "",
+        username: "",
         password: "",
     });
     const [isSignUpActive, setIsSignUpActive] = useState(false);
@@ -20,6 +21,7 @@ const AuthPage = () => {
     <>
     <form>
         <input type="text" placeholder="Email" onChange={(e) => setInputs({ ...inputs, email: e.target.value })}/>
+        {isSignUpActive && <input type="text" placeholder="Username" onChange={(e) => setInputs({ ...inputs, username: e.target.value })}/>}
         <input type="password" placeholder="Password" onChange={(e) => setInputs({ ...inputs, password: e.target.value })}/>
 
         {isSignUpActive && <button type="button" onClick={() => signUp(inputs)}>Sign Up</button>}
