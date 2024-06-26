@@ -25,6 +25,12 @@ const ProfilePage = () => {
 
     // console.log(profileData);
 
+    function formatDate(createdAt) {
+        const date = new Date(createdAt);
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
+
     console.log(isLoading);
     console.log(profileData);
     const userNotFound = !isLoading && !profileData;
@@ -34,9 +40,19 @@ const ProfilePage = () => {
         )
     }
 
+    if (isLoading) {
+        return (
+            <></>
+        )
+    }
+
     return (
         <>
         <h1>{username}</h1>
+        <h2>{profileData.bio}</h2>
+        <h2>followers: {profileData.followers.length}</h2>
+        <h2>following: {profileData.following.length}</h2>
+        <h2>joined: {formatDate(profileData.createdAt)}</h2>
         </>
     )
 }
