@@ -1,6 +1,12 @@
+import useLogout from "../hooks/useLogout";
+
 const HomePage = () => {
+  const {handleLogout, isLoggingOut, error} = useLogout();
+
   return (
-    <div>Home</div>
+    <>
+    <button type="button" onClick={() => handleLogout()}>Logout</button>
+    </>
   )
 }
 

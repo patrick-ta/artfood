@@ -7,15 +7,20 @@ import HomePage from '../pages/HomePage';
 import ProtectedRoute from '../routes/ProtectedRoute';
 
 function App() {
-  const [authUser] = useAuthState(auth);
-  console.log(authUser);
+  const [user, loading, error] = useAuthState(auth);
+  if (loading) {
+    return (
+      <>
+      </>
+    )
+  }
 
   return (
     <Routes>
 
       <Route path='/' element={<AuthPage/>}/>
       <Route path='home' element={
-        <ProtectedRoute user={authUser}>
+        <ProtectedRoute user={user}>
           <HomePage/>
         </ProtectedRoute>
       }/>
