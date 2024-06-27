@@ -4,7 +4,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { useEffect, useState } from 'react';
 import useGetUserProfileByUsername from '../hooks/useGetUserProfileByUsername';
 import useGetUserPosts from '../hooks/useGetUserPosts';
-import ProfilePosts from '../components/ProfilePosts';
+import ProfilePosts from '../components/posts/ProfilePosts';
 
 const ProfilePage = () => {
     const { username } = useParams();
