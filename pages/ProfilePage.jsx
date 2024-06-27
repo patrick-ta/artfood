@@ -3,27 +3,12 @@ import { firestore } from '../firebase/firebase';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { useEffect, useState } from 'react';
 import useGetUserProfileByUsername from '../hooks/useGetUserProfileByUsername';
+import useGetUserPosts from '../hooks/useGetUserPosts';
+import ProfilePosts from '../components/ProfilePosts';
 
 const ProfilePage = () => {
     const { username } = useParams();
     const { isLoading, profileData} = useGetUserProfileByUsername(username);
-    //const [profileData, setProfileData] = useState({});
-    //console.log(username);
-    
-    // useEffect(() => {
-    //     const getProfileData = async () => {
-    //         const usersRef = collection(firestore, "users");
-    //         const q = query(usersRef, where("username", "==", username));
-    //         const querySnapshot = await getDocs(q);
-    //         querySnapshot.forEach((doc) => {
-    //             setProfileData(doc.data());
-    //         });
-    //     }
-
-    //     getProfileData();
-    // }, []);
-
-    // console.log(profileData);
 
     function formatDate(createdAt) {
         const date = new Date(createdAt);
@@ -31,8 +16,6 @@ const ProfilePage = () => {
         return date.toLocaleDateString('en-US', options);
     }
 
-    console.log(isLoading);
-    console.log(profileData);
     const userNotFound = !isLoading && !profileData;
     if (userNotFound) {
         return (
@@ -45,7 +28,7 @@ const ProfilePage = () => {
             <></>
         )
     }
-
+    
     return (
         <>
         <h1>{username}</h1>
@@ -53,6 +36,7 @@ const ProfilePage = () => {
         <h2>followers: {profileData.followers.length}</h2>
         <h2>following: {profileData.following.length}</h2>
         <h2>joined: {formatDate(profileData.createdAt)}</h2>
+        <ProfilePosts uid={profileData.uid}/>
         </>
     )
 }
