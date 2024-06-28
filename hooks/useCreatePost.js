@@ -26,6 +26,7 @@ function useCreatePost() {
             const imageRef = ref(storage, `posts/${postDocRef.id}`);
 
             await updateDoc(userDocRef, {posts: arrayUnion(postDocRef.id)});
+            await updateDoc(postDocRef, {id: postDocRef.id});
             await uploadString(imageRef, selectedFile, "data_url");
             const downloadURL = await getDownloadURL(imageRef);
 
