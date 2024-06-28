@@ -7,6 +7,7 @@ import HomePage from '../pages/HomePage';
 import UploadPage from '../pages/UploadPage';
 import ProfilePage from '../pages/ProfilePage';
 import ProtectedRoute from '../routes/ProtectedRoute';
+import PostPage from '../pages/PostPage';
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
@@ -32,6 +33,7 @@ function App() {
         </ProtectedRoute>
       }/>
       <Route path='/:username' element={<ProfilePage/>}/>
+      <Route path='/post/:postId' element={<PostPage/>}/>
     </Routes>
   )
 }

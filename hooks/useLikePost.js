@@ -7,7 +7,6 @@ const useLikePost = (post) => {
     const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
 
     if (userInfo !== null) {
-        console.log("test")
         const [isUpdating, setIsUpdating] = useState(false);
         const [likes, setLikes] = useState(post.likes.length);
         const [isLiked, setIsLiked] = useState(post.likes.includes(userInfo.uid));
@@ -36,7 +35,6 @@ const useLikePost = (post) => {
         return { isLiked, likes, handleLikePost, isUpdating };
     }
     else {
-        console.log("test2")
         const [isUpdating, setIsUpdating] = useState(false);
         const [likes, setLikes] = useState(post.likes.length);
         const [isLiked, setIsLiked] = useState(false);
