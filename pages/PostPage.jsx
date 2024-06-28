@@ -3,7 +3,7 @@ import useGetPostById from '../hooks/useGetPostById';
 
 const PostPage = () => {
     const { postId } = useParams();
-    const { isLoading, postData} = useGetPostById(postId);
+    const { isLoading, postData, userData} = useGetPostById(postId);
 
     if (isLoading) {
         return (
@@ -13,6 +13,8 @@ const PostPage = () => {
 
     return (
         <>
+        <h2>{userData.username}</h2>
+        <h2>{postData.caption}</h2>
         <img src={postData.imageURL} alt="" />
         </>
     )

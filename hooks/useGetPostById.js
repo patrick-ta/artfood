@@ -5,16 +5,17 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 const useGetPostById = (id) => {
     const [isLoading, setIsLoading] = useState(true);
     const [postData, setPostData] = useState({});
+    const [userData, setUserData] = useState({});
 
     useEffect(() => {
         const getPostData = async () => {
             setIsLoading(true);
             try {
                 const postsRef = collection(firestore, "posts");
-                console.log(id)
+                const userRef = collection(firestore, "users");
 
-                const q = query(postsRef, where("id", "==", id));
-                const querySnapshot = await getDocs(q);
+                let q = query(postsRef, where("id", "==", id));
+                let querySnapshot = await getDocs(q);
 
                 if (querySnapshot.empty) return setPostData(null);
 
@@ -22,6 +23,17 @@ const useGetPostById = (id) => {
                     console.log(doc.data());
                     setPostData(doc.data());
                 });
+
+                q = query(userRef, where("posts", "array-contains", id))
+                querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) return setUserData(null);
+
+                querySnapshot.forEach((doc) => {
+                    console.log(doc.data());
+                    setUserData(doc.data());
+                });
+
             }
             catch (error) {
                 console.log(error);
@@ -34,7 +46,7 @@ const useGetPostById = (id) => {
         getPostData();
     }, []);
 
-    return { isLoading, postData};
+    return { isLoading, postData, userData};
 }
 
 export default useGetPostById
