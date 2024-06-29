@@ -1,0 +1,41 @@
+import { useEffect, useState } from "react";
+import { firestore } from "../firebase/firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+
+const useGetComments = (postData) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [commentData, setCommentData] = useState([]);
+
+    console.log(postData);
+
+    useEffect(() => {
+        const getCommentData = async () => {
+            setIsLoading(true);
+            try {
+                const postsRef = collection(firestore, "posts");
+                let q = query(postsRef, where("id", "==", postData.id));
+                let querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) return setPostData(null);
+                const comments = [];
+                querySnapshot.forEach((doc) => {
+                    comments.push(doc.data().comments);
+                });
+                comments.sort((a, b) => b.createdAt - a.createdAt);
+                setCommentData(comments);
+            }
+            catch (error) {
+                console.log(error);
+            }
+            finally {
+                setIsLoading(false);
+            }
+        }
+
+        getCommentData();
+    }, []);
+
+    return {isLoading, commentData};
+}
+
+export default useGetComments

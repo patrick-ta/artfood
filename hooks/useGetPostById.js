@@ -18,7 +18,7 @@ const useGetPostById = (id) => {
                 let querySnapshot = await getDocs(q);
 
                 if (querySnapshot.empty) return setPostData(null);
-
+                
                 querySnapshot.forEach((doc) => {
                     console.log(doc.data());
                     setPostData(doc.data());
