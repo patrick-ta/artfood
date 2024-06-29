@@ -4,18 +4,23 @@ import { addDoc, arrayUnion, collection, doc, updateDoc } from "firebase/firesto
 
 const useCreateComment = (postData) => {
     const [isLoading, setIsLoading] = useState(false);
-    const uid = JSON.parse(localStorage.getItem("user-info")).uid;
-    const username = JSON.parse(localStorage.getItem("user-info")).username;
+    const userInfoString = localStorage.getItem("user-info");
+    const userInfo = userInfoString ? JSON.parse(userInfoString) : null;
+
 
     const handleCreateComment = async (comment) => {
         if (isLoading) return;
+        if (userInfo === null) {
+            console.log("you must be logged in to leave comments");
+            return;
+        }
         if (!comment) throw new Error("Comment is blank");
         setIsLoading(true);
 
         const newComment = {
             comment: comment,
-            createdBy: uid,
-            username: username,
+            createdBy: userInfo.uid,
+            username: userInfo.username,
             postId: postData.id,
             createdAt: Date.now(),
         };
