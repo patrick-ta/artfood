@@ -22,7 +22,7 @@ const PostPage = () => {
 
         <h2>Comments</h2>
 
-        <CommentHeader postData={postData} userData={userData}></CommentHeader>
+        <CommentHeader postData={postData}></CommentHeader>
         <CommentBody postData={postData}></CommentBody>
         
         </>

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import useCreateComment from "../../hooks/useCreateComment"
 
-const CommentHeader = ({postData, userData}) => {
+const CommentHeader = ({postData}) => {
     const [comment, setComment] = useState("");
-    const {isLoading, handleCreateComment} = useCreateComment(postData, userData);
+    const {isLoading, handleCreateComment} = useCreateComment(postData);
 
     console.log(comment)
 
