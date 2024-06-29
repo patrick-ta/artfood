@@ -4,21 +4,20 @@ import useGetComments from "../../hooks/useGetComments";
 const CommentBody = ({postData}) => {
     const {isLoading, commentData} = useGetComments(postData);
 
-    if (isLoading) {
+    if (isLoading || !commentData) {
         return (
             <></>
         )
     }
 
-    console.log(commentData[0][0].createdAt);
-
     return (
         <>
         <ul>
             {commentData.map(comment => (
-                <li key={comment[0].createdAt}>
+                <li key={comment.createdAt}>
                     <div>
-                        <h2>{comment[0].createdBy}</h2>
+                        <h2>{comment.username}, {comment.createdBy}</h2>
+                        <h2>{comment.comment}</h2>
                     </div>
                 </li>
             ))}

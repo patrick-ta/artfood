@@ -16,12 +16,17 @@ const useGetComments = (postData) => {
                 let q = query(postsRef, where("id", "==", postData.id));
                 let querySnapshot = await getDocs(q);
 
-                if (querySnapshot.empty) return setPostData(null);
-                const comments = [];
+                
+
+                let comments = [];
                 querySnapshot.forEach((doc) => {
-                    comments.push(doc.data().comments);
+                    comments = doc.data().comments;
                 });
+
+                if (comments.length === 0) return setCommentData(null);
+
                 comments.sort((a, b) => b.createdAt - a.createdAt);
+
                 setCommentData(comments);
             }
             catch (error) {

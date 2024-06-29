@@ -13,8 +13,6 @@ const CommentHeader = ({postData, userData}) => {
         <input type="text" placeholder="Add a comment..." onChange={(e) => setComment(e.target.value)} style={{ width: '30%' }}/>
         <button onClick={() => handleCreateComment(comment)}>Comment</button>
 
-        <h2>{postData.id}</h2>
-        <h2>{userData.uid}</h2>
         </>
     )
 }
