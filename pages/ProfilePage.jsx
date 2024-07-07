@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import useGetUserProfileByUsername from '../hooks/useGetUserProfileByUsername';
 import useGetUserPosts from '../hooks/useGetUserPosts';
 import ProfilePosts from '../components/posts/ProfilePosts';
+import FollowData from '../components/profile/FollowData';
 
 const ProfilePage = () => {
     const { username } = useParams();
@@ -33,8 +34,7 @@ const ProfilePage = () => {
         <>
         <h1>{username}</h1>
         <h2>{profileData.bio}</h2>
-        <h2>followers: {profileData.followers.length}</h2>
-        <h2>following: {profileData.following.length}</h2>
+        <FollowData profileData={profileData}></FollowData>
         <h2>joined: {formatDate(profileData.createdAt)}</h2>
         <ProfilePosts uid={profileData.uid}/>
         </>
