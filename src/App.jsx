@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Navigate, Routes, Route } from 'react-router-dom'
+import { createBrowserRouter, Navigate, Routes, Route, RouterProvider } from 'react-router-dom'
 import { auth } from '../firebase/firebase';
 import { useAuthState } from "react-firebase-hooks/auth";
 import AuthPage from '../pages/AuthPage'
@@ -9,8 +9,24 @@ import ProfilePage from '../pages/ProfilePage';
 import ProtectedRoute from '../routes/ProtectedRoute';
 import PostPage from '../pages/PostPage';
 
+
 function App() {
   const [user, loading, error] = useAuthState(auth);
+
+  const router = createBrowserRouter([
+    {path: '/', element: <AuthPage/>},
+    {path: '/home', element: 
+      <ProtectedRoute user={user}>
+        <HomePage/>
+      </ProtectedRoute>},
+    {path: '/upload', element:
+      <ProtectedRoute user={user}>
+        <UploadPage/>
+      </ProtectedRoute>},
+    {path: '/:username', element: <ProfilePage/>},
+    {path: '/post/:postId', element: <PostPage/>},
+  ]);
+
   if (loading) {
     return (
       <>
@@ -19,22 +35,7 @@ function App() {
   }
 
   return (
-    <Routes>
-
-      <Route path='/' element={<AuthPage/>}/>
-      <Route path='/home' element={
-        <ProtectedRoute user={user}>
-          <HomePage/>
-        </ProtectedRoute>
-      }/>
-      <Route path='/upload' element={
-        <ProtectedRoute user={user}>
-          <UploadPage/>
-        </ProtectedRoute>
-      }/>
-      <Route path='/:username' element={<ProfilePage/>}/>
-      <Route path='/post/:postId' element={<PostPage/>}/>
-    </Routes>
+    <RouterProvider router={router} />
   )
 }
 
